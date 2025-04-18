@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 DATA_FILE = "data/users.json"
 
+# Utils to load and save user data
 def load_users():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
@@ -15,10 +16,12 @@ def save_users(users):
     with open(DATA_FILE, "w") as f:
         json.dump(users, f, indent=4)
 
+# Homepage
 @app.route("/")
 def home():
     return render_template("index.html")
 
+# User list and creation
 @app.route("/users", methods=["GET", "POST"])
 def users():
     users = load_users()
@@ -32,6 +35,7 @@ def users():
 
     return render_template("users.html", users=users)
 
+# User profile with skills
 @app.route("/user/<username>", methods=["GET", "POST"])
 def user_profile(username):
     users = load_users()
@@ -66,6 +70,5 @@ def user_profile(username):
 
     return render_template("user_profile.html", username=username, skills=user["skills"])
 
-# 👇 ESTA LÍNEA AL FINAL SIEMPRE
 if __name__ == "__main__":
     app.run(debug=True)

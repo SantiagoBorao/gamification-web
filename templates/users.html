@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Users - Gamification</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Users</title>
 </head>
 <body>
     <h1>👤 Users</h1>
 
     <ul>
         {% for name in users %}
-        <li><a href="{{ url_for('user_profile', username=name) }}">{{ name }}</a></li>
-        {% else %}
-            <li>No users yet</li>
+            <li><a href="{{ url_for('user_profile', username=name) }}">{{ name }}</a></li>
         {% endfor %}
     </ul>
 

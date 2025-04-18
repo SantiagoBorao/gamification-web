@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{{ username }}'s Skills</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ username }}'s Profile</title>
 </head>
 <body>
     <h1>🧠 {{ username }}'s Skills</h1>
@@ -15,7 +13,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>This user has no skills yet.</p>
+        <p>No skills yet.</p>
     {% endif %}
 
     <h3>➕ Add Skill</h3>

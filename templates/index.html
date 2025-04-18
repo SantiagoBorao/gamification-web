@@ -1,27 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Users - Gamification</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gamification Web</title>
 </head>
 <body>
-    <h1>👤 Users</h1>
-
-    <ul>
-        {% for name in users %}
-            <li>{{ name }}</li>
-        {% else %}
-            <li>No users yet</li>
-        {% endfor %}
-    </ul>
-
-    <h3>Add a new user</h3>
-    <form method="post">
-        <input type="text" name="username" placeholder="Enter username" required>
-        <button type="submit">➕ Add</button>
-    </form>
-
-    <p><a href="/">🔙 Back to Home</a></p>
+    <h1>🏠 Welcome to the Gamification System</h1>
+    <p><a href="/users">Go to Users</a></p>
 </body>
 </html>
