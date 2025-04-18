@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ username }}'s Skills</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🧠 {{ username }}'s Skills</h1>
+
+    {% if skills %}
+        <ul>
+        {% for name, data in skills.items() %}
+            <li>{{ name }} — Level {{ data.level }}, XP {{ data.xp }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>This user has no skills yet.</p>
+    {% endif %}
+
+    <h3>➕ Add Skill</h3>
+    <form method="post">
+        <input type="text" name="skill_name" placeholder="Skill name" required>
+        <input type="hidden" name="action" value="add_skill">
+        <button type="submit">Add</button>
+    </form>
+
+    <h3>⚡ Add XP to Skill</h3>
+    <form method="post">
+        <select name="skill_to_update">
+            {% for name in skills %}
+                <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="xp_amount" placeholder="XP" min="1" required>
+        <input type="hidden" name="action" value="add_xp">
+        <button type="submit">Add XP</button>
+    </form>
+
+    <p><a href="/users">🔙 Back to Users</a></p>
+</body>
+</html>
