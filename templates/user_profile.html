@@ -32,6 +32,21 @@
                 <button class="btn btn-danger btn-sm">🗑️ Delete</button>
             </form>
         </li>
+        {% if data.actions %}
+            <div class="mt-2">
+                {% for action_name, xp in data.actions.items() %}
+                    <form method="post" class="d-inline">
+                        <input type="hidden" name="action" value="do_action">
+                        <input type="hidden" name="skill_name" value="{{ name }}">
+                        <input type="hidden" name="action_name" value="{{ action_name }}">
+                        <button class="btn btn-outline-dark btn-sm me-2 mb-2">
+                            {{ action_name }} (+{{ xp }} XP)
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     {% endfor %}
     </ul>
 {% else %}

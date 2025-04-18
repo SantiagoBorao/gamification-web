@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Gamification Web</title>
-</head>
-<body>
-    <h1>🏠 Welcome to the Gamification System</h1>
-    <p><a href="/users">Go to Users</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Welcome to the Gamification System</h1>
+    <p class="lead">Track your skills. Earn XP. Level up.</p>
+    <a href="{{ url_for('users') }}" class="btn btn-success btn-lg">Start</a>
+</div>
+{% endblock %}

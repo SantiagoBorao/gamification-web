@@ -1,10 +1,13 @@
 {
-    "maxgbz": {
+    "Maxgbz": {
         "skills": {
             "Gym": {
-                "level": 1,
-                "xp": 15,
-                "name": "Gym"
+                "level": 2,
+                "xp": 5,
+                "actions": {
+                    "D\u00eda de Pecho": 15,
+                    "D\u00eda de Pierna": 20
+                }
             }
         }
     }

@@ -1,23 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Users</title>
-</head>
-<body>
-    <h1>👤 Users</h1>
+{% extends "base.html" %}
 
-    <ul>
-        {% for name in users %}
-            <li><a href="{{ url_for('user_profile', username=name) }}">{{ name }}</a></li>
-        {% endfor %}
-    </ul>
+{% block title %}Users{% endblock %}
 
-    <h3>Add a new user</h3>
-    <form method="post">
-        <input type="text" name="username" placeholder="Enter username" required>
-        <button type="submit">➕ Add</button>
-    </form>
+{% block content %}
+<h1 class="mb-4">Users</h1>
 
-    <p><a href="/">🔙 Back to Home</a></p>
-</body>
-</html>
+{% if users %}
+<ul class="list-group mb-4">
+    {% for name in users %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ name }}</span>
+        <a href="{{ url_for('user_profile', username=name) }}" class="btn btn-outline-primary btn-sm">View</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">No users yet.</p>
+{% endif %}
+
+<hr>
+
+<h3>Add New User</h3>
+<form method="post" class="row g-2">
+    <div class="col-auto">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Add</button>
+    </div>
+</form>
+
+<p class="mt-4"><a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a></p>
+{% endblock %}

@@ -8,12 +8,12 @@ DATA_FILE = "data/users.json"
 # Utils to load and save user data
 def load_users():
     if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 def save_users(users):
-    with open(DATA_FILE, "w") as f:
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(users, f, indent=4)
 
 # Homepage
@@ -77,6 +77,21 @@ def user_profile(username):
             skill_name = request.form.get("skill_to_delete")
             if skill_name in user["skills"]:
                 del user["skills"][skill_name]
+
+        elif action == "do_action":
+            skill_name = request.form.get("skill_name")
+            action_name = request.form.get("action_name")
+            if skill_name in user["skills"]:
+                skill = user["skills"][skill_name]
+                if "actions" in skill and action_name in skill["actions"]:
+                    xp = skill["actions"][action_name]
+                    skill["xp"] += xp
+                    level_threshold = 100 * skill["level"]
+                    while skill["xp"] >= level_threshold:
+                        skill["xp"] -= level_threshold
+                        skill["level"] += 1
+                        level_threshold = 100 * skill["level"]
+
 
         save_users(users)
         return redirect(url_for("user_profile", username=username))
