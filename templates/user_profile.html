@@ -4,6 +4,13 @@
 
 {% block content %}
 <h1 class="mb-4">{{ username }}'s Skills</h1>
+<div class="alert alert-info">
+    <strong>Stats:</strong><br>
+    Total XP: <strong>{{ total_xp }}</strong><br>
+    Total Skills: <strong>{{ num_skills }}</strong><br>
+    Top Skill: <strong>{{ top_skill or 'N/A' }}</strong>
+</div>
+
 
 {% if skills %}
     <ul class="list-group mb-4">

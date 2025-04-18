@@ -9,6 +9,14 @@
                     "D\u00eda de Pierna": 20,
                     "Espalda": 15
                 }
+            },
+            "Cooking": {
+                "level": 1,
+                "xp": 60,
+                "actions": {
+                    "Saladas": 5
+                },
+                "name": "Cooking"
             }
         }
     }

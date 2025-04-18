@@ -46,6 +46,20 @@ def user_profile(username):
 
     user = users[username]
 
+    # Calcular estadísticas del usuario
+    total_xp = 0
+    top_skill = None
+    max_xp = -1
+
+    for skill_name, skill_data in user["skills"].items():
+        total_xp += skill_data["xp"]
+        if skill_data["xp"] > max_xp:
+            top_skill = skill_name
+            max_xp = skill_data["xp"]
+
+    num_skills = len(user["skills"])
+
+
     if request.method == "POST":
         action = request.form.get("action")
 
@@ -107,7 +121,16 @@ def user_profile(username):
         save_users(users)
         return redirect(url_for("user_profile", username=username))
 
-    return render_template("user_profile.html", username=username, skills=user["skills"])
+    return render_template(
+        "user_profile.html",
+        username=username,
+        skills=user["skills"],
+        total_xp=total_xp,
+        num_skills=num_skills,
+        top_skill=top_skill
+    )
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
