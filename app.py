@@ -32,6 +32,7 @@ def users():
             users[new_name] = {"skills": {}}
             save_users(users)
         return redirect(url_for("users"))
+    
 
     return render_template("users.html", users=users)
 
@@ -64,6 +65,18 @@ def user_profile(username):
                     skill["xp"] -= level_threshold
                     skill["level"] += 1
                     level_threshold = 100 * skill["level"]
+
+        elif action == "rename_skill":
+            old_name = request.form.get("old_skill_name")
+            new_name = request.form.get("new_skill_name")
+            if old_name in user["skills"] and new_name and new_name not in user["skills"]:
+                    user["skills"][new_name] = user["skills"].pop(old_name)
+                    user["skills"][new_name]["name"] = new_name
+
+        elif action == "delete_skill":
+            skill_name = request.form.get("skill_to_delete")
+            if skill_name in user["skills"]:
+                del user["skills"][skill_name]
 
         save_users(users)
         return redirect(url_for("user_profile", username=username))
