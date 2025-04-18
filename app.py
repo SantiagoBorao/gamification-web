@@ -91,7 +91,18 @@ def user_profile(username):
                         skill["xp"] -= level_threshold
                         skill["level"] += 1
                         level_threshold = 100 * skill["level"]
-
+        elif action == "add_action":
+            skill_name = request.form.get("skill_name")
+            action_name = request.form.get("new_action_name")
+            try:
+                xp = int(request.form.get("new_action_xp", 0))
+            except:
+                xp = 0
+            if skill_name in user["skills"] and action_name and xp > 0:
+                skill = user["skills"][skill_name]
+                if "actions" not in skill:
+                    skill["actions"] = {}
+                skill["actions"][action_name] = xp
 
         save_users(users)
         return redirect(url_for("user_profile", username=username))

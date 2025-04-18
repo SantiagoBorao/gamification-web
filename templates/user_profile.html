@@ -7,7 +7,7 @@
 
 {% if skills %}
     <ul class="list-group mb-4">
-    {% for name, data in skills.items() %}
+        {% for name, data in skills.items() %}
         <li class="list-group-item">
             <strong>{{ name }}</strong> — Level {{ data.level }}, XP {{ data.xp }}
             
@@ -18,35 +18,49 @@
                     {{ data.xp }}/{{ next_level_xp }}
                 </div>
             </div>
-
+    
             <form method="post" class="d-inline">
                 <input type="hidden" name="action" value="rename_skill">
                 <input type="hidden" name="old_skill_name" value="{{ name }}">
                 <input type="text" name="new_skill_name" class="form-control d-inline w-auto" placeholder="New name" required>
                 <button class="btn btn-warning btn-sm">✏️ Rename</button>
             </form>
-
+    
             <form method="post" class="d-inline">
                 <input type="hidden" name="action" value="delete_skill">
                 <input type="hidden" name="skill_to_delete" value="{{ name }}">
                 <button class="btn btn-danger btn-sm">🗑️ Delete</button>
             </form>
-        </li>
-        {% if data.actions %}
-            <div class="mt-2">
-                {% for action_name, xp in data.actions.items() %}
-                    <form method="post" class="d-inline">
-                        <input type="hidden" name="action" value="do_action">
-                        <input type="hidden" name="skill_name" value="{{ name }}">
-                        <input type="hidden" name="action_name" value="{{ action_name }}">
-                        <button class="btn btn-outline-dark btn-sm me-2 mb-2">
-                            {{ action_name }} (+{{ xp }} XP)
-                        </button>
-                    </form>
-                {% endfor %}
-            </div>
-        {% endif %}
-
+            {% if data.actions %}
+                <div class="mt-2">
+                    {% for action_name, xp in data.actions.items() %}
+                        <form method="post" class="d-inline">
+                            <input type="hidden" name="action" value="do_action">
+                            <input type="hidden" name="skill_name" value="{{ name }}">
+                            <input type="hidden" name="action_name" value="{{ action_name }}">
+                            <button class="btn btn-outline-dark btn-sm me-2 mb-2">
+                                {{ action_name }} (+{{ xp }} XP)
+                            </button>
+                        </form>
+                    {% endfor %}
+                </div>
+            {% endif %}
+    
+            <!-- ✅ Formulario para añadir nueva acción -->
+            <form method="post" class="row g-2 mt-3">
+                <input type="hidden" name="action" value="add_action">
+                <input type="hidden" name="skill_name" value="{{ name }}">
+                <div class="col-auto">
+                    <input type="text" name="new_action_name" class="form-control" placeholder="Action name" required>
+                </div>
+                <div class="col-auto">
+                    <input type="number" name="new_action_xp" class="form-control" placeholder="XP" min="1" required>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary btn-sm">➕ Add Action</button>
+                </div>
+            </form>
+        </li>    
     {% endfor %}
     </ul>
 {% else %}

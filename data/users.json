@@ -3,10 +3,11 @@
         "skills": {
             "Gym": {
                 "level": 2,
-                "xp": 5,
+                "xp": 50,
                 "actions": {
                     "D\u00eda de Pecho": 15,
-                    "D\u00eda de Pierna": 20
+                    "D\u00eda de Pierna": 20,
+                    "Espalda": 15
                 }
             }
         }
