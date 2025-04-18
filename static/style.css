@@ -5,3 +5,20 @@ body {
     text-align: center;
     padding: 50px;
 }
+
+.progress-container {
+    width: 200px;
+    background-color: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 4px 0;
+}
+
+.progress-bar {
+    height: 16px;
+    background-color: #4caf50;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    line-height: 16px;
+}

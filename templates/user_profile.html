@@ -1,40 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ username }}'s Profile</title>
-</head>
-<body>
-    <h1>🧠 {{ username }}'s Skills</h1>
+{% extends "base.html" %}
 
-    {% if skills %}
-        <ul>
-        {% for name, data in skills.items() %}
-            <li>{{ name }} — Level {{ data.level }}, XP {{ data.xp }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No skills yet.</p>
-    {% endif %}
+{% block title %}{{ username }}'s Skills{% endblock %}
 
-    <h3>➕ Add Skill</h3>
-    <form method="post">
-        <input type="text" name="skill_name" placeholder="Skill name" required>
-        <input type="hidden" name="action" value="add_skill">
-        <button type="submit">Add</button>
-    </form>
+{% block content %}
+<h1 class="mb-4">{{ username }}'s Skills</h1>
 
-    <h3>⚡ Add XP to Skill</h3>
-    <form method="post">
-        <select name="skill_to_update">
+{% if skills %}
+    <ul class="list-group mb-4">
+    {% for name, data in skills.items() %}
+        <li class="list-group-item">
+            <strong>{{ name }}</strong> — Level {{ data.level }}, XP {{ data.xp }}
+            
+            <div class="progress my-2" style="height: 20px;">
+                {% set next_level_xp = 100 * data.level %}
+                {% set progress = (data.xp / next_level_xp) * 100 %}
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ progress }}%;">
+                    {{ data.xp }}/{{ next_level_xp }}
+                </div>
+            </div>
+
+            <form method="post" class="d-inline">
+                <input type="hidden" name="action" value="rename_skill">
+                <input type="hidden" name="old_skill_name" value="{{ name }}">
+                <input type="text" name="new_skill_name" class="form-control d-inline w-auto" placeholder="New name" required>
+                <button class="btn btn-warning btn-sm">✏️ Rename</button>
+            </form>
+
+            <form method="post" class="d-inline">
+                <input type="hidden" name="action" value="delete_skill">
+                <input type="hidden" name="skill_to_delete" value="{{ name }}">
+                <button class="btn btn-danger btn-sm">🗑️ Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-muted">No skills yet.</p>
+{% endif %}
+
+<hr>
+
+<h3>➕ Add Skill</h3>
+<form method="post" class="row g-2 mb-4">
+    <input type="hidden" name="action" value="add_skill">
+    <div class="col-auto">
+        <input type="text" name="skill_name" class="form-control" placeholder="Skill name" required>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Add Skill</button>
+    </div>
+</form>
+
+<h3>⚡ Add XP to Skill</h3>
+<form method="post" class="row g-2 mb-4">
+    <input type="hidden" name="action" value="add_xp">
+    <div class="col-auto">
+        <select name="skill_to_update" class="form-select">
             {% for name in skills %}
                 <option value="{{ name }}">{{ name }}</option>
             {% endfor %}
         </select>
-        <input type="number" name="xp_amount" placeholder="XP" min="1" required>
-        <input type="hidden" name="action" value="add_xp">
-        <button type="submit">Add XP</button>
-    </form>
+    </div>
+    <div class="col-auto">
+        <input type="number" name="xp_amount" class="form-control" placeholder="XP" min="1" required>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-success">Add XP</button>
+    </div>
+</form>
 
-    <p><a href="/users">🔙 Back to Users</a></p>
-</body>
-</html>
+<a href="{{ url_for('users') }}" class="btn btn-secondary">← Back to Users</a>
+{% endblock %}

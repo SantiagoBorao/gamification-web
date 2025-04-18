@@ -1,9 +1,10 @@
 {
     "maxgbz": {
         "skills": {
-            "Cooking": {
+            "Gym": {
                 "level": 1,
-                "xp": 10
+                "xp": 15,
+                "name": "Gym"
             }
         }
     }
